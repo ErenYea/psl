@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 import AWS from "aws-sdk";
 const AWS_ACCESS_KEY = "AKIA47W6BLPUO47YQLC7";
 const AWS_SECRET_KEY = "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";
@@ -29,8 +30,8 @@ const Welcome = ({ user, setUser }) => {
     try {
       const response = await s3.upload(params).promise();
       console.log("File uploaded successfully:", response);
-      sets3data(response);
-      return true;
+      // sets3data(response);
+      return response;
     } catch (error) {
       console.log("hamza");
       console.error("Error uploading file:", error);
@@ -46,10 +47,18 @@ const Welcome = ({ user, setUser }) => {
       const res = await uploadFile(selectedFile);
       if (res) {
         // perform axios reqeust
-        // const resp = await axios.post('url',{url:s3data.location})
-        // const text=  await resp.json()
-        // setText(text)
-        // document.getElementById("text").classList.remove("hidden");
+        const resp = await axios.post(
+          "https://edbd-34-23-221-135.ngrok-free.app/" +
+            "pslinterpretor/backend",
+          {
+            url: res.Location,
+          }
+        );
+        console.log(resp);
+        const text = resp.data;
+        const results = text.result.join(", ");
+        setText(results);
+        document.getElementById("text").classList.remove("hidden");
       }
       setSuccess(false);
       // event.target.files = [];
