@@ -48,7 +48,7 @@ const Welcome = ({ user, setUser }) => {
       if (res) {
         // perform axios reqeust
         const resp = await axios.post(
-          "https://edbd-34-23-221-135.ngrok-free.app/" +
+          "https://ae68-34-23-221-135.ngrok-free.app/" +
             "pslinterpretor/backend",
           {
             url: res.Location,
