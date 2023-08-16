@@ -33,7 +33,7 @@ const Signup = ({ setUser }) => {
           setError(data.message);
           document.getElementById("error").classList.remove("hidden");
         } else {
-          setUser(data.data[0]);
+          setUser(data.result);
           navigate("/welcome");
         }
       } else {
