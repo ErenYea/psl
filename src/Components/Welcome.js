@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AWS from "aws-sdk";
 const AWS_ACCESS_KEY = "AKIA47W6BLPUO47YQLC7";
@@ -17,6 +18,7 @@ const Welcome = ({ user, setUser }) => {
   const [file, setFile] = useState(null);
   const [s3data, sets3data] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [text, setText] = useState("");
   const uploadFile = async (file) => {
     const params = {
       Bucket: BUCKET_NAME,
@@ -44,6 +46,10 @@ const Welcome = ({ user, setUser }) => {
       const res = await uploadFile(selectedFile);
       if (res) {
         // perform axios reqeust
+        // const resp = await axios.post('url',{url:s3data.location})
+        // const text=  await resp.json()
+        // setText(text)
+        // document.getElementById("text").classList.remove("hidden");
       }
       setSuccess(false);
       // event.target.files = [];
@@ -64,6 +70,13 @@ const Welcome = ({ user, setUser }) => {
       <div className="mt-8">{user.name}</div>
       <div className="mt-2">{user.email}</div>
       <img src="PSL_icon.png" alt="" className="w-[190px] h-fit mt-6" />
+
+      <div
+        className="text-md text-red-400 font-semibold text-center hidden"
+        id="text"
+      >
+        Detected Sign : <span className=" italic ">{text}</span>
+      </div>
       <div className="border border-b h-[1px] w-3/4 mt-6"></div>
       <div className="w-full flex justify-center mt-6">
         <div
